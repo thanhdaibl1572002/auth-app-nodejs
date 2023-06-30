@@ -16,7 +16,16 @@ export const verifyAccessToken = (token: string, secretKey: string): Promise<boo
     })
 }
 
-export const setAccessTokenCookie = (res: Response, token: string) => {
+export const setAccessTokenCookie = (res: Response, token: string): void => {
     const encodedToken = encodeURIComponent(token)
     res.cookie('accessToken', encodedToken, { maxAge: maxAge, httpOnly: true })
+}
+
+export const deleteAccessTokenCookie = (res: Response): void => {
+    res.clearCookie('accessToken')
+}
+
+export const getUserIdFromAccessToken = (accessToken: string): string => {
+    const decodedToken = jwt.verify(accessToken, process.env.JWT_SECRET_KEY!) as { userId: string }
+    return decodedToken.userId
 }

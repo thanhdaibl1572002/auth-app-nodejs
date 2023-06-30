@@ -37,14 +37,6 @@ export const checkExistingUser = async (req: Request, res: Response, next: NextF
     next()
 }
 
-export const checkExistingSession = async (req: Request, res: Response, next: NextFunction): Promise<void | Response<IResponse>> => {
-    if (!req.session)
-        return res.status(HTTP_STATUS_UNAUTHORIZED).json({
-            message: serverErrorMessage.SESSION_DOES_NOT_EXIST
-        } as IResponse) 
-    next()
-}
-
 export const validateUser = async (req: Request, res: Response, next: NextFunction): Promise<void | Response<IResponse>> => {
     const { error } = JoiUserSchema.validate(req.body)
     if (error) {

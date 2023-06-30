@@ -2,12 +2,12 @@ import { Router } from 'express'
 import { 
     checkExistingEmail, 
     checkExistingPhone, 
-    checkExistingSession, 
     checkExistingUser, 
     validateUser, 
-    verifyPassword 
+    verifyPassword,
+    verifyToken,
 } from '@/middlewares/user'
-import { signIn, signOut, signUp } from '@/controllers/user'
+import { signIn, signOut, signUp, viewProfile } from '@/controllers/user'
 
 const UserRouter = Router()
 
@@ -28,8 +28,13 @@ UserRouter.post(
 
 UserRouter.post(
     '/signout',
-    checkExistingSession,
-    signOut 
+    signOut
+)
+
+UserRouter.get(
+    '/profile',
+    verifyToken,
+    viewProfile
 )
 
 export default UserRouter

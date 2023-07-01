@@ -7,7 +7,6 @@ import morgan from 'morgan'
 import { connect } from 'mongoose'
 import { config } from 'dotenv'
 import cookieParser from 'cookie-parser'
-import session from 'express-session'
 
 import UserRouter from '@/routes/user'
 
@@ -22,7 +21,6 @@ app.use(cors({ origin: 'http://example.com' }))
 app.use(helmet({ contentSecurityPolicy: false }))
 app.use(morgan('dev'))
 app.use(cookieParser())
-app.use(session({ secret: process.env.SESSION_SECRET_KEY!, resave: false, saveUninitialized: false }))
 
 // Routes
 app.use('/api/users', UserRouter)
